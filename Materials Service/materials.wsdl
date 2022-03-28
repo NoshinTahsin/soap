@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="sms.schema.materials"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:materials_schema="sms.schema.materials"
+	name="materialsService"
+	targetNamespace="sms.schema.materials">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import schemaLocation="materials.xsd" namespace="sms.schema.materials"></xs:import>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="getDevelopedRequest">
+		<wsdl:part name="uniqueMaterialId" element="materials_schema:uniqueMaterialId"></wsdl:part>
+		<wsdl:part name="architectId" element="materials_schema:architectId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getDevelopedResponse">
+		<wsdl:part name="developedMaterialDoc" element="materials_schema:developedMaterialDoc"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="getPurchasedRequest">
+		<wsdl:part name="uniqueMaterialId" element="materials_schema:uniqueMaterialId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getPurchasedResponse">
+		<wsdl:part name="purchasedMaterialDoc" element="materials_schema:purchasedMaterialDoc"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="reportStockLevelsRequest">
+		<wsdl:part name="uniqueMaterialId" element="materials_schema:uniqueMaterialId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="reportStockLevelsResponse">
+		<wsdl:part name="stockLevelValue" element="materials_schema:stockLevelValue"></wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:portType name="materialsPortType">
+	
+		<wsdl:operation name="getDeveloped">
+			<wsdl:input message="tns:getDevelopedRequest" name="getDevelopedRequest"></wsdl:input>
+			<wsdl:output message="tns:getDevelopedResponse" name="getDevelopedResponse"></wsdl:output>
+		</wsdl:operation>
+
+		
+		<wsdl:operation name="getPurchased">
+			<wsdl:input message="tns:getPurchasedRequest" name="getPurchasedRequest"></wsdl:input>
+			<wsdl:output message="tns:getPurchasedResponse" name="getPurchasedResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="reportStockLevels">
+			<wsdl:input message="tns:reportStockLevelsRequest" name="reportStockLevelsRequest"></wsdl:input>
+			<wsdl:output message="tns:reportStockLevelsResponse" name="reportStockLevelsResponse"></wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+
+	<wsdl:binding name="materialsService" type="tns:materialsPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="getDeveloped">
+			<soap:operation soapAction="https://localhost:44361/materialsservice.asmx?op=getDeveloped" style="document"/>
+			<wsdl:input name="getDevelopedRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDevelopedResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getPurchased">
+			<soap:operation soapAction="https://localhost:44361/materialsservice.asmx?op=getPurchased" style="document"/>
+			<wsdl:input name="getPurchasedRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getPurchasedResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="reportStockLevels">
+			<soap:operation soapAction="https://localhost:44361/materialsservice.asmx?op=reportStockLevels" style="document"/>
+			<wsdl:input name="reportStockLevelsRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="reportStockLevelsResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="materials">
+		<wsdl:port binding="tns:materialsService" name="MaterialsPort">
+			<soap:address location="http://localhost:44361/show/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
