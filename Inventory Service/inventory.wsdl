@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="sms.schema.inventory"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:inventory_schema="sms.schema.inventory"
+	name="inventoryService"
+	targetNamespace="sms.schema.inventory">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import schemaLocation="inventory.xsd" namespace="sms.schema.inventory"></xs:import>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="addItemRequest">
+		<wsdl:part name="ItemDocument" element="inventory_schema:ItemDocument"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="addItemResponse">
+		<wsdl:part name="ackCode" element="inventory_schema:ackCode"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="getItemRequest">
+		<wsdl:part name="uniqueItemId" element="inventory_schema:uniqueItemId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getItemResponse">
+		<wsdl:part name="ItemDocument" element="inventory_schema:ItemDocument"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="getItemCountRequest">
+		<wsdl:part name="uniqueItemId" element="inventory_schema:uniqueItemId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getItemCountResponse">
+		<wsdl:part name="stockLevelValue" element="inventory_schema:stockLevelValue"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="removeItemRequest">
+		<wsdl:part name="uniqueItemId" element="inventory_schema:uniqueItemId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeItemResponse">
+		<wsdl:part name="ackCode" element="inventory_schema:ackCode"></wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:portType name="inventoryPortType">
+	
+		<wsdl:operation name="addItem">
+			<wsdl:input message="tns:addItemRequest" name="addItemRequest"></wsdl:input>
+			<wsdl:output message="tns:addItemResponse" name="addItemResponse"></wsdl:output>
+		</wsdl:operation>
+
+		
+		<wsdl:operation name="getItem">
+			<wsdl:input message="tns:getItemRequest" name="getItemRequest"></wsdl:input>
+			<wsdl:output message="tns:getItemResponse" name="getItemResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getItemCount">
+			<wsdl:input message="tns:getItemCountRequest" name="getItemCountRequest"></wsdl:input>
+			<wsdl:output message="tns:getItemCountResponse" name="getItemCountResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="removeItem">
+			<wsdl:input message="tns:removeItemRequest" name="removeItemRequest"></wsdl:input>
+			<wsdl:output message="tns:removeItemResponse" name="removeItemResponse"></wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+
+	<wsdl:binding name="inventoryService" type="tns:inventoryPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="addItem">
+			<soap:operation soapAction="https://localhost:44361/inventoryService.asmx?op=addItem" style="document"/>
+			<wsdl:input name="addItemRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="addItemResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getItem">
+			<soap:operation soapAction="https://localhost:44361/inventoryService.asmx?op=getItem" style="document"/>
+			<wsdl:input name="getItemRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getItemResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="getItemCount">
+			<soap:operation soapAction="https://localhost:44361/inventoryService.asmx?op=getItemCount" style="document"/>
+			<wsdl:input name="getItemCountRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getItemCountResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="removeItem">
+			<soap:operation soapAction="https://localhost:44361/inventoryService.asmx?op=removeItem" style="document"/>
+			<wsdl:input name="removeItemRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="removeItemResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="inventory">
+		<wsdl:port binding="tns:inventoryService" name="InventoryPort">
+			<soap:address location="http://localhost:44361/inventory/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
