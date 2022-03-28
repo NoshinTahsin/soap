@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="sms.schema.materials"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" 
+    xmlns:materials_ns="sms.schema.materials">
+        <xs:element name="uniqueMaterialId" type="xs:int" nillable="false"></xs:element>
+        <xs:element name="architectId" type="xs:int" ></xs:element>
+        <xs:element name="developedMaterialDoc" type="xs:string"></xs:element>
+        <xs:element name="purchasedMaterialDoc" type="xs:string" ></xs:element>
+        <xs:element name="stockLevelValue" type="xs:string"></xs:element>
+</xs:schema>
