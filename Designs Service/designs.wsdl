@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="sms.schema.designs"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:designs_schema="sms.schema.designs"
+	name="designsService"
+	targetNamespace="sms.schema.designs">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import schemaLocation="designs.xsd" namespace="sms.schema.designs"></xs:import>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="addBaseRequest">
+		<wsdl:part name="designDoc" element="designs_schema:designDoc"></wsdl:part>
+		<wsdl:part name="architectId" element="designs_schema:architectId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="addBaseResponse">
+		<wsdl:part name="ackCode" element="designs_schema:ackCode"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="simulateRequest">
+		<wsdl:part name="uniqueMaterialId" element="designs_schema:uniqueMaterialId"></wsdl:part>
+		<wsdl:part name="uniqueDesignId" element="designs_schema:uniqueDesignId"></wsdl:part>
+		<wsdl:part name="architectId" element="designs_schema:architectId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="simulateResponse">
+		<wsdl:part name="simulationReportDoc" element="designs_schema:simulationReportDoc"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="getDocumentRequest">
+		<wsdl:part name="uniqueDesignId" element="designs_schema:uniqueDesignId"></wsdl:part>
+		<wsdl:part name="architectId" element="designs_schema:architectId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getDocumentResponse">
+		<wsdl:part name="designDoc" element="designs_schema:designDoc"></wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:portType name="designsPortType">
+	
+		<wsdl:operation name="addBase">
+			<wsdl:input message="tns:addBaseRequest" name="addBaseRequest"></wsdl:input>
+			<wsdl:output message="tns:addBaseResponse" name="addBaseResponse"></wsdl:output>
+		</wsdl:operation>
+
+		
+		<wsdl:operation name="simulate">
+			<wsdl:input message="tns:simulateRequest" name="simulateRequest"></wsdl:input>
+			<wsdl:output message="tns:simulateResponse" name="simulateResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getDocument">
+			<wsdl:input message="tns:getDocumentRequest" name="getDocumentRequest"></wsdl:input>
+			<wsdl:output message="tns:getDocumentResponse" name="getDocumentResponse"></wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+
+	<wsdl:binding name="designsService" type="tns:designsPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="addBase">
+			<soap:operation soapAction="https://localhost:44361/designssservice.asmx?op=addBase" style="document"/>
+			<wsdl:input name="addBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="addBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="simulate">
+			<soap:operation soapAction="https://localhost:44361/designssservice.asmx?op=simulate" style="document"/>
+			<wsdl:input name="simulateRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="simulateResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="getDocument">
+			<soap:operation soapAction="https://localhost:44361/designssservice.asmx?op=getDocument" style="document"/>
+			<wsdl:input name="getDocumentRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDocumentResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="designs">
+		<wsdl:port binding="tns:designsService" name="DesignsPort">
+			<soap:address location="http://localhost:44361/designs/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
