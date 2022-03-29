@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="sms.schema.patentSweep"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" 
+    xmlns:materials_ns="sms.schema.patentSweep">
+        <xs:element name="uniqueDesignId" type="xs:int" nillable="false"></xs:element>
+        <xs:element name="patentStatusReport" type="xs:string" nillable="false"></xs:element>
+</xs:schema>

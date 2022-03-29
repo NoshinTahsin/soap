@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="sms.schema.patentSweep"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:patentSweep_schema="sms.schema.patentSweep"
+	name="patentSweepService"
+	targetNamespace="sms.schema.patentSweep">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import schemaLocation="patentSweep.xsd" namespace="sms.schema.patentSweep"></xs:import>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="patentSweepRequest">
+		<wsdl:part name="uniqueDesignId" element="patentSweep_schema:uniqueDesignId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="patentSweepResponse">
+		<wsdl:part name="patentStatusReport" element="patentSweep_schema:patentStatusReport"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="patentSweepPortType">
+	
+		<wsdl:operation name="performPatentSweep">
+			<wsdl:input message="tns:patentSweepRequest" name="patentSweepRequest"></wsdl:input>
+			<wsdl:output message="tns:patentSweepResponse" name="patentSweepResponse"></wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+
+	<wsdl:binding name="patentSweepService" type="tns:patentSweepPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="performPatentSweep">
+			<soap:operation soapAction="https://localhost:44361/patentSweepService.asmx?op=performPatentSweep" style="document"/>
+			<wsdl:input name="patentSweepRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="patentSweepResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="patentSweep">
+		<wsdl:port binding="tns:patentSweepService" name="patentSweepPort">
+			<soap:address location="http://localhost:44361/patentSweep/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
