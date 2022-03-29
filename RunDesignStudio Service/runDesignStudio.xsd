@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="sms.schema.runDesignStudio"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" 
+    xmlns:materials_ns="sms.schema.runDesignStudio">
+        <xs:element name="architectId" type="xs:int" nillable="false"></xs:element>
+        <xs:element name="dateValue" type="xs:string" nillable="false"></xs:element>
+        <xs:element name="ackCode" type="xs:string" ></xs:element>
+</xs:schema>
