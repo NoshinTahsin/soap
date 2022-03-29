@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="sms.schema.reportGeneration"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:reportGeneration_schema="sms.schema.reportGeneration"
+	name="reportGenerationService"
+	targetNamespace="sms.schema.reportGeneration">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import schemaLocation="reportGeneration.xsd" namespace="sms.schema.reportGeneration"></xs:import>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="generateReportRequest">
+		<wsdl:part name="uniqueEventId" element="reportGeneration_schema:uniqueEventId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="generateReportResponse">
+		<wsdl:part name="eventReport" element="reportGeneration_schema:eventReport"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="generateReportPortType">
+	
+		<wsdl:operation name="generateReport">
+			<wsdl:input message="tns:generateReportRequest" name="generateReportRequest"></wsdl:input>
+			<wsdl:output message="tns:generateReportResponse" name="generateReportResponse"></wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+
+	<wsdl:binding name="generateReportService" type="tns:generateReportPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="generateReport">
+			<soap:operation soapAction="https://localhost:44361/generateReportService.asmx?op=generateReport" style="document"/>
+			<wsdl:input name="generateReportRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="generateReportResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="generateReport">
+		<wsdl:port binding="tns:generateReportService" name="generateReportPort">
+			<soap:address location="http://localhost:44361/generateReport/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
