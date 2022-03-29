@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="sms.schema.notification"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" 
+    xmlns:materials_ns="sms.schema.notification">
+        <xs:element name="uniqueEventId" type="xs:int" nillable="false"></xs:element>
+        <xs:element name="eventNotification" type="xs:string"></xs:element>
+</xs:schema>

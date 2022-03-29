@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="sms.schema.notification"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:notification_schema="sms.schema.notification"
+	name="notificationService"
+	targetNamespace="sms.schema.notification">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import schemaLocation="notification.xsd" namespace="sms.schema.notification"></xs:import>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="generateNotificationRequest">
+		<wsdl:part name="uniqueEventId" element="notification_schema:uniqueEventId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="generateNotificationResponse">
+		<wsdl:part name="eventNotification" element="notification_schema:eventNotification"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="notificationPortType">
+	
+		<wsdl:operation name="generateNotification">
+			<wsdl:input message="tns:generateNotificationRequest" name="generateNotificationRequest"></wsdl:input>
+			<wsdl:output message="tns:generateNotificationResponse" name="generateNotificationResponse"></wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+
+	<wsdl:binding name="notificationService" type="tns:notificationPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="generateNotification">
+			<soap:operation soapAction="https://localhost:44361/notificationService.asmx?op=generateNotification" style="document"/>
+			<wsdl:input name="generateNotificationRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="generateNotificationResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="notification">
+		<wsdl:port binding="tns:notificationService" name="NotificationPort">
+			<soap:address location="http://localhost:44361/notification/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
